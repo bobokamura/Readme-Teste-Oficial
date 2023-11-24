@@ -35,7 +35,7 @@ Este guia fornece instruções detalhadas sobre como realizar um deploy da aplic
     - `Endereço remoto`: apontar para API que está sendo feito o deploy;
     - Renomear JAR atual(ex: ctfl-respostaapi-1.0.jar para ctfl-respostaapi-1.0.jar-10-07) com a data de modificação e excluir JAR mais antigo;
     - ***EM CASO DE CARD QUE VOLTOU NO TESTE, APAGAR A PRÓPRIA VERSÃO DE TESTE;***
-    - Ao lado do `Endereço local`, no diretório da pasta `target`, mover o JAR gerado anteriormente para onde estão os JAR's atuais(verifique se está movendo o tipo correto: `jar-arquivo`);
+    - Em `Endereço local`, no diretório da pasta `target`, mover o JAR gerado anteriormente para onde estão os JAR's atuais(verifique se está movendo o tipo correto: `jar-arquivo`);
     - Utilize o FileZilla para transferir o JAR gerado para o servidor.
     - Remova o JAR antigo e renomeie o novo conforme a data de modificação.
 
