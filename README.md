@@ -75,10 +75,11 @@ Este guia fornece instruções detalhadas sobre como realizar um deploy da aplic
         - `Instances` -> procure a API desejada;
         - Clique na instância e em `Actions`, selecione `Image and templates` -> `Create image`.
     - Criando a imagem:
-        - `Image name` -> cole o nome da AMI NOVA criada.
-            > Ex: *ami-api-pedido-01-11-2023-v2.20.6*.
+    	- `Image name` -> cole o nome da AMI NOVA criada.
+     	    > Ex: *ami-api-pedido-01-11-2023-v2.20.6*.
 		- `Image description - optional` -> cole novamente a *ami-api-pedido-01-11-2023-v2.20.6*;
-		    > [!!!] No `reboot` -> *MARCAR O CHECK "ENABLE" E VERIFICAR SE O "Delete on termination" TAMBÉM ESTÁ MARCADO*.
+		- IMPORTANTE!!!:
+ 	  	    > `No reboot` -> *MARCAR O CHECK "ENABLE" E VERIFICAR SE O "Delete on termination" TAMBÉM ESTÁ MARCADO*.
 		- `Add new tag` -> Em `Key` insira `"Name"` e cole a AMI NOVA, ex: *ami-api-pedido-01-11-2023-v2.20.6*;
 		- Verifique os campos novamente e clique em `Create image`, vai demorar um pouco até que a imagem seja criada e o status fique `"Available"` na aba AMIs.   
     - Com a imagem criada:
@@ -98,8 +99,10 @@ Este guia fornece instruções detalhadas sobre como realizar um deploy da aplic
         - Em `Instance management` -> `Lauch template/configuration` -> verifique a versão que está rodando;
     - Para forçar e subir a nova versão:
         - `Detais` -> `Edit` -> Em base na `Maximum capacity`, altere a `Desired capacity`.
-        - Ex: Se a Maximum capacity esteja setada para até 10 máquinas e a Desired capacity estiver rodando 5, suba "até" o limite e clique em Update;
-		- Volte em `Instance management` -> `Lauch template/configuration` -> verifique as versões novas que deverão subir.
+        - Caso a `Desired capacity` esteja rodando 5 máquinas, mesmo que a `Max desired capacity` seja por exemplo 8 máquinas, suba para 10 e mude também a `Desired capacity` para 10 e clique em `Update`.
+        - Assim que as versões novas estiverem rodando nas máquinas, volte a `Max desired capacity` e a `Desired capacity` para o estado anterior:
+        	> Nesse exemplo: `Max desired capacity` = 8 e `Desired capacity` = 5
+        - Dessa forma, vai sobrescrever somente as versões atuais.
 
 12. **Observação:**
     - Certifique-se de seguir os passos com cuidado e sempre faça testes antes de aplicar em ambientes de produção. Este guia assume familiaridade com as ferramentas e conceitos mencionados.
