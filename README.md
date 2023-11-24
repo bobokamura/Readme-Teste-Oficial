@@ -1,5 +1,3 @@
-# Readme-Teste-Oficial
-
 # README - Deploy OFICIAL(Produção)
 
 Este guia fornece instruções detalhadas sobre como realizar um deploy da aplicação em produção. Certifique-se de seguir cada etapa com atenção para garantir um processo de deploy seguro e bem sucedido.
@@ -16,41 +14,45 @@ Este guia fornece instruções detalhadas sobre como realizar um deploy da aplic
         - Em caso de *BUG*:
             > *Atual: 2.20.5* --> *Nova: 2.20.6*   
 
-4. **Commit e Push:**
+3. **Commit e Push:**
     - Execute o comando ```git log``` para identificar o último commit relacionado ao versionamento, que no caso era o
         > `Bumped to version 2.20.5`.
     - Faça um novo commit utilizando o padrão com a nova versão:
         > `Bumped to version 2.21.0`.
     - Dê um `git push origin develop` para atualizar a branch develop.
 
-5. **Pull Request para a Master:**
+4. **Pull Request para a Master:**
     - Crie um novo pull request da develop para a master com o nome da versão, ex: `v2.21.0`.
     - Realize o Merge pull request.
 
-6. **Alteração da TAG da Master:**
+5. **Alteração da TAG da Master:**
     - Altere a TAG da master para refletir a nova versão.
 
-7. **Atualização da Master e Geração do JAR:**
+6. **Atualização da Master e Geração do JAR:**
     - Faça o checkout para a branch master e dê um pull para atualizar conforme a develop.
     - Utilize o Maven para gerar o JAR:
         ```
         mvn clean compile install
         ```
 
-8. **FileZilla - Atualização dos JARs:**
+7. **FileZilla - Atualização dos JARs:**
     - `Endereço local`: apontar para diretório local onde está alocada a API e selecionar pasta *"target"*;
     - `Endereço remoto`: apontar para API que está sendo feito o deploy;
-    - Renomear JAR atual(ex: ctfl-respostaapi-1.0.jar para ctfl-respostaapi-1.0.jar-10-07) com a data de modificação e excluir JAR mais antigo;
+    - Renomear JAR atual:
+      > - ctfl-respostaapi-1.0.jar
+    - Para:
+      > - ctfl-respostaapi-1.0.jar-10-07
+    - Altere a data de modificação e excluia o JAR mais antigo;
     - ***EM CASO DE CARD QUE VOLTOU NO TESTE, APAGAR A PRÓPRIA VERSÃO DE TESTE;***
     - Em `Endereço local`, no diretório da pasta `target`, mover o JAR gerado anteriormente para onde estão os JAR's atuais(verifique se está movendo o tipo correto: `jar-arquivo`);
     - Utilize o FileZilla para transferir o JAR gerado para o servidor.
     - Remova o JAR antigo e renomeie o novo conforme a data de modificação.
 
-9. **AWS - Atualização na Instância:**
+8. **AWS - Atualização na Instância:**
     - Acesse a AWS e copie o Public IPv4 address da instância EC2.
       - `EC2` -> `Instances` -> procure a API desejada;
 
-10. **Abra o terminal:**
+9. **Abra o terminal:**
     - No terminal, acesse o diretório da Amazon e execute o comando:
       - `ssh -i ~/Amazon/api_auth.pem ubuntu@<COLE_O_PUBLIC_IPV4_ADDRESS>`;
     - Digite YES se for a primeira vez;
@@ -59,7 +61,7 @@ Este guia fornece instruções detalhadas sobre como realizar um deploy da aplic
     - Abra o navegador, cole o `<Public_IPv4_address>` + `:<PORTA>` + `/actuator/info`.
       - Por exemplo: [http://54.242.230.161:8888/actuator/info](http://54.242.230.161:8888/actuator/info).
 
-11. **AWS - Criação de Imagem e Atualização do Launch Template:**
+10. **AWS - Criação de Imagem e Atualização do Launch Template:**
     - Crie uma imagem da instância atualizada na AWS:
         -  `Images` -> `AMIs`;
         -  Digite a API na busca e filtre a data de criação mais recente e selecione;
@@ -89,7 +91,7 @@ Este guia fornece instruções detalhadas sobre como realizar um deploy da aplic
 		- Agora em `My AMIs`, clique em `Select` na imagem buscada e em seguida `Create template version`;
 		- Novamente em `Launch template version details` -> `Actions` -> `Set default version`, selecione a versão criada e clique em `Set as default version`. 
     
-12. **Forçar Atualização na Auto Scaling se necessário:**
+11. **Forçar Atualização na Auto Scaling se necessário:**
     - No Auto Scaling Groups, ajuste a Desired capacity para forçar a subida da nova versão.
         - `Auto Scaling` -> `Auto Scaling Groups`;
         - Busque a API que deseja e clique nela;
@@ -99,5 +101,5 @@ Este guia fornece instruções detalhadas sobre como realizar um deploy da aplic
         - Ex: Se a Maximum capacity esteja setada para até 10 máquinas e a Desired capacity estiver rodando 5, suba "até" o limite e clique em Update;
 		- Volte em `Instance management` -> `Lauch template/configuration` -> verifique as versões novas que deverão subir.
 
-13. **Observação:**
+12. **Observação:**
     - Certifique-se de seguir os passos com cuidado e sempre faça testes antes de aplicar em ambientes de produção. Este guia assume familiaridade com as ferramentas e conceitos mencionados.
