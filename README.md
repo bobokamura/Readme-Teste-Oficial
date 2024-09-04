@@ -79,7 +79,7 @@ Este guia fornece instruções detalhadas sobre como realizar um deploy da aplic
      	    > Ex: *ami-api-pedido-01-11-2023-v2.20.6*.
 		- `Image description - optional` -> cole novamente a *ami-api-pedido-01-11-2023-v2.20.6*;
 		- IMPORTANTE!!!:
- 	  	    > `No reboot` -> *MARCAR O CHECK "ENABLE" E VERIFICAR SE O "Delete on termination" TAMBÉM ESTÁ MARCADO*.
+ 	  	    > `Reboot Instance` -> *DESMARCAR O CHECK E VERIFICAR SE O "Delete on termination" TAMBÉM ESTÁ MARCADO* Não é necessário reinicializar a instância.
 		- `Add new tag` -> Em `Key` insira `"Name"` e cole a AMI NOVA, ex: *ami-api-pedido-01-11-2023-v2.20.6*;
 		- Verifique os campos novamente e clique em `Create image`, vai demorar um pouco até que a imagem seja criada e o status fique `"Available"` na aba AMIs.   
     - Com a imagem criada:
